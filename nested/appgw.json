@@ -168,6 +168,6 @@
         "documentation1": "This sub-template creates an Azure Application Gateway for SSL offloading. It expects certain values in the 'common' datastructure.",
         "appGwBePoolName": "[parameters('moodleCommon').appGwBePoolName]",
         "appGwPublicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moodleCommon').appGwPipName)]",
-        "appGwID": "[if(endswith(parameters('moodleCommon').appGwSkuName, 'v2'), resourceId('Microsoft.Network/applicationGateways', concat(parameters('moodleCommon').appGwName,'v2')) , resourceId('Microsoft.Network/applicationGateways', concat(parameters('moodleCommon').appGwName,'v1')) )]"
+        "appGwID": "[if(endswith(parameters('moodleCommon').appGwSkuName, 'v2'), resourceId('Microsoft.Network/applicationGateways', parameters('moodleCommon').appGwName,'v2') , resourceId('Microsoft.Network/applicationGateways', parameters('moodleCommon').appGwName,'v1') )]"
     }
 }
