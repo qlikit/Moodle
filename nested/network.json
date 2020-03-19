@@ -149,7 +149,7 @@
             }
         },
         {
-            "condition": "[equals(parameters('moodleCommon').httpsTermination, 'AppGw')]",
+            "condition": "[and(equals(parameters('moodleCommon').httpsTermination, 'AppGW'), not(endswith(parameters('moodleCommon').appGwSkuName, 'v2')))]",
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-11-01",
             "location": "[parameters('moodleCommon').location]",
@@ -161,7 +161,26 @@
                 "publicIPAllocationMethod": "Dynamic"
             },
             "tags": {
-                "displayName": "App Gateway Public IP (must be dynamic)"
+                "displayName": "V1 App Gateway Public IP (must be dynamic)"
+            }
+        },
+        {
+            "condition": "[and(equals(parameters('moodleCommon').httpsTermination, 'AppGW'), endswith(parameters('moodleCommon').appGwSkuName, 'v2'))]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2019-11-01",
+            "location": "[parameters('moodleCommon').location]",
+            "name": "[parameters('moodleCommon').appGwPipName]",
+            "sku" : {
+                "name": "Standard"
+            },
+            "properties": {
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('moodleCommon').appGwName]"
+                },
+                "publicIPAllocationMethod": "Static"
+            },
+            "tags": {
+                "displayName": "V2 App Gateway Public IP (must be standard SKU)"
             }
         },
         {
