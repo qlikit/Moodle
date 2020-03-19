@@ -165,7 +165,6 @@
             }
         },
         {
-            "condition": "[and(equals(parameters('moodleCommon').httpsTermination, 'AppGW'), endswith(parameters('moodleCommon').appGwSkuName, 'v2'))]",
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2019-11-01",
             "location": "[parameters('moodleCommon').location]",
