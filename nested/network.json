@@ -294,7 +294,7 @@
             "apiVersion": "2017-05-10",
             "dependsOn": [
                 "Microsoft.Resources/deployments/subnetTemplate",
-                "[concat('Microsoft.Network/publicIPAddresses/',parameters('moodleCommon').lbPipName)]"
+                "[or(concat('Microsoft.Network/publicIPAddresses/',parameters('moodleCommon').appGwPipName,'v1'),concat('Microsoft.Network/publicIPAddresses/',parameters('moodleCommon').appGwPipName,'v2'))]"
             ],
             "name": "appGwTemplate",
             "properties": {
