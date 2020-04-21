@@ -33,7 +33,7 @@
             }
         },
         {
-            "condition": "[and(equals(parameters('customSubnets').subnets[1].name, ''), not(equals(parameters('moodleCommon').fileServerType, 'nfs')))]",
+            "condition": "[and(not(parameters('customSubnets').singleSubnetDeploy), equals(parameters('customSubnets').subnets[1].name, ''), not(equals(parameters('moodleCommon').fileServerType, 'nfs')))]",
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2017-10-01",
             "name": "[concat(parameters('vnetName'), '/', parameters('moodleCommon').subnetSan)]",
@@ -46,7 +46,7 @@
             }
         },
         {
-            "condition": "[and(equals(parameters('customSubnets').subnets[2].name, ''), parameters('moodleCommon').redisDeploySwitch)]",
+            "condition": "[and(not(parameters('customSubnets').singleSubnetDeploy), equals(parameters('customSubnets').subnets[2].name, ''), parameters('moodleCommon').redisDeploySwitch)]",
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2017-10-01",
             "name": "[concat(parameters('vnetName'), '/', parameters('moodleCommon').subnetRedis)]",

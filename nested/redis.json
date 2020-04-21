@@ -11,7 +11,8 @@
         "customSubnets" :{
             "metadata": {
                 "description": "byo Subnet information"
-            }
+            },
+            "type": "object"
         },
         "subnetIdRedis": {
             "metadata": {
@@ -39,7 +40,7 @@
                     "family": "P",
                     "name": "Premium"
                 },
-                "subnetId": "[if(parameters('customSubnets').singleSubnetDeployment, parameters('subnetIdWeb'), parameters('subnetIdRedis'))]"
+                "subnetId": "[if(parameters('customSubnets').singleSubnetDeploy, parameters('subnetIdWeb'), parameters('subnetIdRedis'))]"
             }
         }
     ],
