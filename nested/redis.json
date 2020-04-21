@@ -8,21 +8,9 @@
             },
             "type": "object"
         },
-        "customSubnets" :{
-            "metadata": {
-                "description": "byo Subnet information"
-            },
-            "type": "object"
-        },
         "subnetIdRedis": {
             "metadata": {
                 "description": "Azure resource ID of the subnet where this Redis instance is to be deployed"
-            },
-            "type": "string"
-        },
-        "subnetIdWeb": {
-            "metadata": {
-                "description": "Azure resource ID of the subnet where this Redis instance is to be deployed if singleSubnetDeployment is true"
             },
             "type": "string"
         }
@@ -40,7 +28,7 @@
                     "family": "P",
                     "name": "Premium"
                 },
-                "subnetId": "[if(parameters('customSubnets').singleSubnetDeploy, parameters('subnetIdWeb'), parameters('subnetIdRedis'))]"
+                "subnetId": "[parameters('subnetIdRedis')]"
             }
         }
     ],
