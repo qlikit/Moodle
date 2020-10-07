@@ -44,7 +44,7 @@
                             "direction": "Inbound",
                             "priority": 1000,
                             "protocol": "Tcp",
-                            "sourceAddressPrefix": "*",
+                            "sourceAddressPrefix": "71.225.148.7/32",
                             "sourcePortRange": "*"
                         }
                     },
