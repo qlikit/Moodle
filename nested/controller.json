@@ -148,7 +148,8 @@
                 }
             },
             "tags": {
-                "displayName": "Controller Virtual Machine"
+                "displayName": "Controller Virtual Machine",
+                "24x7": ""
             }
         },
         {
