@@ -717,6 +717,18 @@
             "metadata": {
                 "description": "Azure Location for all resources."
             }
+        },
+        "sigSciAccessKey": {
+            "type": "string",
+            "metadata": {
+                "description": "Access Key for SigSci"
+            }
+        },
+        "sigSciSecretAccessKey": {
+            "type": "string",
+            "metadata": {
+                "description": "Secret Access Key for SigSci"
+            }
         }
     },
     "resources": [
@@ -1256,6 +1268,8 @@
             "searchType": "[parameters('searchType')]",
             "serverName": "[concat(parameters('dbServerType'), '-',variables('resourceprefix'))]",
             "siteURL": "[if(or(empty(parameters('siteURL')), equals(parameters('siteURL'), 'www.example.org')), concat(if(equals(parameters('httpsTermination'), 'AppGw'),'appgw-','lb-'),variables('resourceprefix'),'.',parameters('location'),'.cloudapp.azure.com'), parameters('siteURL'))]",
+            "sigSciAccessKey": "[parameters('sigSciAccessKey')]",
+            "sigSciSecretAccessKey": "[parameters('sigSciSecretAccessKey')]",
             "sshPublicKey": "[parameters('sshPublicKey')]",
             "sshUsername": "[parameters('sshUsername')]",
             "sslEnforcement": "[parameters('sslEnforcement')]",
@@ -1317,7 +1331,7 @@
             }
         ],
         "octets": "[split(parameters('vNetAddressSpace'), '.')]",
-        "resourceprefix": "cympoc",
+        "resourceprefix": "sigscicym",
         "subnetSanPrefix": "[concat( variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),2)))]",
         "subnetWebRange": "[if(equals(parameters('customSubnets').subnets[0].addressPrefix, ''), concat( variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),0)), '.0/24') , parameters('customSubnets').subnets[0].addressPrefix )]"
         

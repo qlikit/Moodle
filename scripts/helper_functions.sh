@@ -69,6 +69,22 @@ function get_setup_params_from_configs_json
     export storageAccountType=$(echo $json | jq -r .moodleProfile.storageAccountType)
     export fileServerDiskSize=$(echo $json | jq -r .fileServerProfile.fileServerDiskSize)
     export phpVersion=$(echo $json | jq -r .phpProfile.phpVersion)
+    export sigSciAccessKey=$(echo $json | jq -r .sigSciProfile.sigSciAccessKey)
+    export sigSciSecretAccessKey=$(echo $json | jq -r .sigSciProfile.sigSciSecretAccessKey)
+}
+
+function install_sigsci {
+sudo apt update
+sudo apt-get install -y apt-transport-https wget
+wget -qO - https://apt.signalsciences.net/release/gpgkey | sudo apt-key add -
+sudo echo "deb https://apt.signalsciences.net/release/ubuntu/ bionic main" | sudo tee /etc/apt/sources.list.d/sigsci-release.list && sudo apt-get update
+sudo apt-get install sigsci-agent
+sudo mkdir /etc/sigsci/
+sudo cat <<EOF > /etc/sigsci/agent.conf
+accesskeyid = "$sigSciAccessKey"
+secretaccesskey = "$sigSciSecretAccessKey"
+EOF
+sudo service sigsci-agent start
 }
 
 function get_php_version {
