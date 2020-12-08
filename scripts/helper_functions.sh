@@ -85,6 +85,7 @@ accesskeyid = "$sigSciAccessKey"
 secretaccesskey = "$sigSciSecretAccessKey"
 EOF
 sudo service sigsci-agent start
+apt-get install sigsci-module-nginx
 }
 
 function get_php_version {
