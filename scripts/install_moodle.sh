@@ -950,5 +950,6 @@ EOF
 
    create_last_modified_time_update_script
    run_once_last_modified_time_update_script
+   install_crowdstrike
    
 }  > /tmp/install.log

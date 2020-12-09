@@ -689,5 +689,6 @@ EOF
   # Restart Varnish
   systemctl daemon-reload
   service varnish restart
+  install_crowdstrike
 
 }  > /tmp/setup.log

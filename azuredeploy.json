@@ -729,6 +729,12 @@
             "metadata": {
                 "description": "Secret Access Key for SigSci"
             }
+        },
+        "crowdstrikeCid": {
+            "type": "string",
+            "metadata": {
+                "description": "CID for Crowdstrike"
+            }
         }
     },
     "resources": [
@@ -1171,6 +1177,7 @@
             "azureSearchPartitionCount": "[parameters('azureSearchPartitionCount')]",
             "azureSearchReplicaCount": "[parameters('azureSearchReplicaCount')]",
             "azureSearchSku": "[parameters('azureSearchSku')]",
+            "crowdstrikeCid": "[parameters('crowdstrikeCid')]",
             "commonFunctionsScriptUri": "[concat(parameters('_artifactsLocation'),'scripts/helper_functions.sh',parameters('_artifactsLocationSasToken'))]",
             "controllerVmSku": "[parameters('controllerVmSku')]",
             "customVnetId": "[parameters('customVnetId')]",

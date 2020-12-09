@@ -96,9 +96,10 @@
             "phpProfile": {
                 "phpVersion": "[parameters('moodleCommon').phpVersion]"
             },
-            "sigSciProfile": {
+            "securityProfile": {
                 "sigSciAccessKey": "[parameters('moodleCommon').sigSciAccessKey]",
-                "sigSciSecretAccessKey": "[parameters('moodleCommon').sigSciSecretAccessKey]"
+                "sigSciSecretAccessKey": "[parameters('moodleCommon').sigSciSecretAccessKey]",
+                "crowdstrikeCid": "[parameters('moodleCommon').crowdstrikeCid]"
             }
         }
     },

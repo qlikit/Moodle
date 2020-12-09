@@ -69,8 +69,18 @@ function get_setup_params_from_configs_json
     export storageAccountType=$(echo $json | jq -r .moodleProfile.storageAccountType)
     export fileServerDiskSize=$(echo $json | jq -r .fileServerProfile.fileServerDiskSize)
     export phpVersion=$(echo $json | jq -r .phpProfile.phpVersion)
-    export sigSciAccessKey=$(echo $json | jq -r .sigSciProfile.sigSciAccessKey)
-    export sigSciSecretAccessKey=$(echo $json | jq -r .sigSciProfile.sigSciSecretAccessKey)
+    export sigSciAccessKey=$(echo $json | jq -r .securityProfile.sigSciAccessKey)
+    export sigSciSecretAccessKey=$(echo $json | jq -r .securityProfile.sigSciSecretAccessKey)
+    export crowdstrikeCid=$(echo $json | jq -r .securityProfile.crowdstrikeCid)
+}
+
+function install_crowdstrike
+{    
+    sudo curl https://outside-help.qlik.com/crowdstrike/falcon-sensor_5.43.0-10801_amd64.deb.gz > /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz
+    sudo chmod +x /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz
+    sudo gzip /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz -d
+    sudo dpkg -i /tmp/falcon-sensor_5.43.0-10801_amd64.deb
+    sudo /opt/CrowdStrike/falconctl -s --cid=$crowdstrikeCid
 }
 
 function install_sigsci {
