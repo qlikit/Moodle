@@ -81,6 +81,7 @@ function install_crowdstrike
     sudo gzip /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz -d
     sudo dpkg -i /tmp/falcon-sensor_5.43.0-10801_amd64.deb
     sudo /opt/CrowdStrike/falconctl -s --cid=$crowdstrikeCid
+    sudo systemctl start falcon-sensor
 }
 
 function install_sigsci {
