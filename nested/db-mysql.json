@@ -71,6 +71,19 @@
                         "endIpAddress": "[parameters('ctlrPubIp')]"
                     },
                     "type": "firewallRules"
+                },
+                {
+                    "type": "virtualNetworkRules",
+                    "apiVersion": "2017-12-01",
+                    "dependsOn": [
+                        "[concat('Microsoft.DBforMySQL/servers/', parameters('moodleCommon').serverName)]"
+                    ],
+                    "name": "allow-vnet",
+                    "properties": {
+                        "virtualNetworkSubnetId": "[concat(parameters('moodleCommon').customVnetId,'/subnets/',parameters('moodleCommon').subnetweb)]",
+                        "ignoreMissingVnetServiceEndpoint": true
+                    }
+
                 }
             ]
         }
