@@ -233,6 +233,7 @@ EOF
     cat <<EOF >> /etc/nginx/sites-enabled/${siteFQDN}.conf
 server {
         listen 443 ssl;
+        ssl_protocols TLSv1.1 TLSv1.2;
         root ${htmlRootDir};
 	index index.php index.html index.htm;
 
