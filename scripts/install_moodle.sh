@@ -410,6 +410,7 @@ EOF
         cat <<EOF >> /etc/nginx/sites-enabled/${siteFQDN}.conf
 server {
         listen 443 ssl;
+        ssl_protocols TLSv1.1 TLSv1.2;
         root /moodle/html/moodle;
         index index.php index.html index.htm;
 
@@ -950,5 +951,6 @@ EOF
 
    create_last_modified_time_update_script
    run_once_last_modified_time_update_script
+   install_crowdstrike
    
 }  > /tmp/install.log

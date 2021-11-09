@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "_artifactsLocation": {
@@ -717,6 +717,24 @@
             "metadata": {
                 "description": "Azure Location for all resources."
             }
+        },
+        "sigSciAccessKey": {
+            "type": "string",
+            "metadata": {
+                "description": "Access Key for SigSci"
+            }
+        },
+        "sigSciSecretAccessKey": {
+            "type": "string",
+            "metadata": {
+                "description": "Secret Access Key for SigSci"
+            }
+        },
+        "crowdstrikeCid": {
+            "type": "string",
+            "metadata": {
+                "description": "CID for Crowdstrike"
+            }
         }
     },
     "resources": [
@@ -1159,6 +1177,7 @@
             "azureSearchPartitionCount": "[parameters('azureSearchPartitionCount')]",
             "azureSearchReplicaCount": "[parameters('azureSearchReplicaCount')]",
             "azureSearchSku": "[parameters('azureSearchSku')]",
+            "crowdstrikeCid": "[parameters('crowdstrikeCid')]",
             "commonFunctionsScriptUri": "[concat(parameters('_artifactsLocation'),'scripts/helper_functions.sh',parameters('_artifactsLocationSasToken'))]",
             "controllerVmSku": "[parameters('controllerVmSku')]",
             "customVnetId": "[parameters('customVnetId')]",
@@ -1256,6 +1275,8 @@
             "searchType": "[parameters('searchType')]",
             "serverName": "[concat(parameters('dbServerType'), '-',variables('resourceprefix'))]",
             "siteURL": "[if(or(empty(parameters('siteURL')), equals(parameters('siteURL'), 'www.example.org')), concat(if(equals(parameters('httpsTermination'), 'AppGw'),'appgw-','lb-'),variables('resourceprefix'),'.',parameters('location'),'.cloudapp.azure.com'), parameters('siteURL'))]",
+            "sigSciAccessKey": "[parameters('sigSciAccessKey')]",
+            "sigSciSecretAccessKey": "[parameters('sigSciSecretAccessKey')]",
             "sshPublicKey": "[parameters('sshPublicKey')]",
             "sshUsername": "[parameters('sshUsername')]",
             "sslEnforcement": "[parameters('sslEnforcement')]",
@@ -1317,7 +1338,7 @@
             }
         ],
         "octets": "[split(parameters('vNetAddressSpace'), '.')]",
-        "resourceprefix": "cympoc",
+        "resourceprefix": "vmsspoc",
         "subnetSanPrefix": "[concat( variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),2)))]",
         "subnetWebRange": "[if(equals(parameters('customSubnets').subnets[0].addressPrefix, ''), concat( variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),0)), '.0/24') , parameters('customSubnets').subnets[0].addressPrefix )]"
         

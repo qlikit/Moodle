@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "moodleCommon": {
@@ -71,6 +71,19 @@
                         "endIpAddress": "[parameters('ctlrPubIp')]"
                     },
                     "type": "firewallRules"
+                },
+                {
+                    "type": "virtualNetworkRules",
+                    "apiVersion": "2017-12-01",
+                    "dependsOn": [
+                        "[concat('Microsoft.DBforMySQL/servers/', parameters('moodleCommon').serverName)]"
+                    ],
+                    "name": "allow-vnet",
+                    "properties": {
+                        "virtualNetworkSubnetId": "[concat(parameters('moodleCommon').customVnetId,'/subnets/',parameters('moodleCommon').subnetweb)]",
+                        "ignoreMissingVnetServiceEndpoint": true
+                    }
+
                 }
             ]
         }

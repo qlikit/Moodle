@@ -44,6 +44,7 @@ echo $nfsByoIpExportPath >> /tmp/vars.txt
 echo $htmlLocalCopySwitch >> /tmp/vars.txt
 echo $phpVersion          >> /tmp/vars.txt
 
+
 # downloading and updating php packages from the repository 
 # sudo dpkg --configure –a
  sudo add-apt-repository ppa:ondrej/php -y > /dev/null 2>&1
@@ -88,6 +89,7 @@ check_fileServerType_param $fileServerType
 
   if [ "$webServerType" = "nginx" -o "$httpsTermination" = "VMSS" ]; then
     sudo apt-get -y install nginx
+    sudo apt-get -y install nginx-extras
   fi
    
   if [ "$webServerType" = "apache" ]; then
@@ -97,6 +99,8 @@ check_fileServerType_param $fileServerType
     # for nginx-only option
     sudo apt-get -y install php$phpVersion-fpm
   fi
+
+  install_sigsci
    
   # Moodle requirements
   sudo apt-get install -y graphviz aspell php$phpVersion-soap php$phpVersion-json php$phpVersion-redis php$phpVersion-bcmath php$phpVersion-gd php$phpVersion-pgsql php$phpVersion-mysql php$phpVersion-xmlrpc php$phpVersion-intl php$phpVersion-xml php$phpVersion-bz2
@@ -148,6 +152,8 @@ EOF
 user www-data;
 worker_processes 2;
 pid /run/nginx.pid;
+load_module modules/ndk_http_module.so;
+load_module modules/ngx_http_lua_module.so;
 
 events {
 	worker_connections 2048;
@@ -168,6 +174,8 @@ http {
   proxy_buffering off;
   include /etc/nginx/mime.types;
   default_type application/octet-stream;
+
+  include "/opt/sigsci/nginx/sigsci.conf";
 
   access_log /var/log/nginx/access.log;
   error_log /var/log/nginx/error.log;
@@ -225,6 +233,7 @@ EOF
     cat <<EOF >> /etc/nginx/sites-enabled/${siteFQDN}.conf
 server {
         listen 443 ssl;
+        ssl_protocols TLSv1.1 TLSv1.2;
         root ${htmlRootDir};
 	index index.php index.html index.htm;
 
@@ -681,5 +690,6 @@ EOF
   # Restart Varnish
   systemctl daemon-reload
   service varnish restart
+  install_crowdstrike
 
 }  > /tmp/setup.log

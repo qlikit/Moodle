@@ -69,6 +69,34 @@ function get_setup_params_from_configs_json
     export storageAccountType=$(echo $json | jq -r .moodleProfile.storageAccountType)
     export fileServerDiskSize=$(echo $json | jq -r .fileServerProfile.fileServerDiskSize)
     export phpVersion=$(echo $json | jq -r .phpProfile.phpVersion)
+    export sigSciAccessKey=$(echo $json | jq -r .securityProfile.sigSciAccessKey)
+    export sigSciSecretAccessKey=$(echo $json | jq -r .securityProfile.sigSciSecretAccessKey)
+    export crowdstrikeCid=$(echo $json | jq -r .securityProfile.crowdstrikeCid)
+}
+
+function install_crowdstrike
+{    
+    sudo curl https://outside-help.qlik.com/crowdstrike/falcon-sensor_5.43.0-10801_amd64.deb.gz > /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz
+    sudo chmod +x /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz
+    sudo gzip /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz -d
+    sudo dpkg -i /tmp/falcon-sensor_5.43.0-10801_amd64.deb
+    sudo /opt/CrowdStrike/falconctl -s --cid=$crowdstrikeCid
+    sudo systemctl start falcon-sensor
+}
+
+function install_sigsci {
+sudo apt update
+sudo apt-get install -y apt-transport-https wget
+wget -qO - https://apt.signalsciences.net/release/gpgkey | sudo apt-key add -
+sudo echo "deb https://apt.signalsciences.net/release/ubuntu/ bionic main" | sudo tee /etc/apt/sources.list.d/sigsci-release.list && sudo apt-get update
+sudo apt-get install sigsci-agent
+sudo mkdir /etc/sigsci/
+sudo cat <<EOF > /etc/sigsci/agent.conf
+accesskeyid = "$sigSciAccessKey"
+secretaccesskey = "$sigSciSecretAccessKey"
+EOF
+sudo service sigsci-agent start
+sudo apt-get install sigsci-module-nginx
 }
 
 function get_php_version {
