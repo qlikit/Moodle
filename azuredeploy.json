@@ -1338,7 +1338,7 @@
             }
         ],
         "octets": "[split(parameters('vNetAddressSpace'), '.')]",
-        "resourceprefix": "qedpoc",
+        "resourceprefix": "qeddev",
         "subnetSanPrefix": "[concat( variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),2)))]",
         "subnetWebRange": "[if(equals(parameters('customSubnets').subnets[0].addressPrefix, ''), concat( variables('octets')[0], '.', variables('octets')[1], '.', string(add(int(variables('octets')[2]),0)), '.0/24') , parameters('customSubnets').subnets[0].addressPrefix )]"
         
