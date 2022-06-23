@@ -72,16 +72,21 @@ function get_setup_params_from_configs_json
     export sigSciAccessKey=$(echo $json | jq -r .securityProfile.sigSciAccessKey)
     export sigSciSecretAccessKey=$(echo $json | jq -r .securityProfile.sigSciSecretAccessKey)
     export crowdstrikeCid=$(echo $json | jq -r .securityProfile.crowdstrikeCid)
+    export nessuskey=$(echo $json | jq -r .securityProfile.nessuskey)
 }
 
 function install_crowdstrike
-{    
-    sudo curl https://outside-help.qlik.com/crowdstrike/falcon-sensor_5.43.0-10801_amd64.deb.gz > /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz
-    sudo chmod +x /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz
-    sudo gzip /tmp/falcon-sensor_5.43.0-10801_amd64.deb.gz -d
-    sudo dpkg -i /tmp/falcon-sensor_5.43.0-10801_amd64.deb
+{   
+    sudo dpkg -i falcon-sensor_6.37.0-13402_amd64.deb
     sudo /opt/CrowdStrike/falconctl -s --cid=$crowdstrikeCid
     sudo systemctl start falcon-sensor
+}
+
+function install_nessus
+{    
+    sudo dpkg -i NessusAgent-10.1.3-ubuntu1110_amd64.deb
+    sudo /opt/nessus_agent/sbin/nessuscli agent link --key=$nessuskey --host=cloud.tenable.com --port=443  
+    sudo /bin/systemctl start nessusagent.service
 }
 
 function install_sigsci {
