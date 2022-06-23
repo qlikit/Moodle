@@ -86,7 +86,7 @@ check_fileServerType_param $fileServerType
   #         sudo systemctl mask $service
   #     fi
   # fi
-
+  sudo add-apt-repository ppa:nginx/stable -y
   if [ "$webServerType" = "nginx" -o "$httpsTermination" = "VMSS" ]; then
     sudo apt-get -y install nginx
     sudo apt-get -y install nginx-extras
@@ -690,6 +690,8 @@ EOF
   # Restart Varnish
   systemctl daemon-reload
   service varnish restart
+  sudo apt-get upgrade -y
+  sudo apt-get dist-upgrade -y
   install_crowdstrike
-
+  install_nessus
 }  > /tmp/setup.log
