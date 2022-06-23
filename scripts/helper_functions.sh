@@ -77,13 +77,15 @@ function get_setup_params_from_configs_json
 
 function install_crowdstrike
 {   
-    sudo dpkg -i falcon-sensor_6.37.0-13402_amd64.deb
+    sudo curl https://raw.githubusercontent.com/QlikIT/Moodle/moodleupdated2022/scripts/falcon-sensor_6.37.0-13402_amd64.deb >> /tmp/falcon-sensor_6.37.0-13402_amd64.deb
+    sudo dpkg -i /tmp/falcon-sensor_6.37.0-13402_amd64.deb
     sudo /opt/CrowdStrike/falconctl -s --cid=$crowdstrikeCid
     sudo systemctl start falcon-sensor
 }
 
 function install_nessus
 {    
+    sudo curl https://raw.githubusercontent.com/QlikIT/Moodle/moodleupdated2022/scripts/NessusAgent-10.1.3-ubuntu1110_amd64.deb >> /tmp/NessusAgent-10.1.3-ubuntu1110_amd64.deb
     sudo dpkg -i NessusAgent-10.1.3-ubuntu1110_amd64.deb
     sudo /opt/nessus_agent/sbin/nessuscli agent link --key=$nessuskey --host=cloud.tenable.com --port=443  
     sudo /bin/systemctl start nessusagent.service
