@@ -735,6 +735,12 @@
             "metadata": {
                 "description": "CID for Crowdstrike"
             }
+        },
+        "nessuskey": {
+            "type": "string",
+            "metadata": {
+                "description": "AccessKey for Nessus"
+            }
         }
     },
     "resources": [
@@ -1178,6 +1184,7 @@
             "azureSearchReplicaCount": "[parameters('azureSearchReplicaCount')]",
             "azureSearchSku": "[parameters('azureSearchSku')]",
             "crowdstrikeCid": "[parameters('crowdstrikeCid')]",
+            "nessuskey": "[parameters('nessuskey')]",
             "commonFunctionsScriptUri": "[concat(parameters('_artifactsLocation'),'scripts/helper_functions.sh',parameters('_artifactsLocationSasToken'))]",
             "controllerVmSku": "[parameters('controllerVmSku')]",
             "customVnetId": "[parameters('customVnetId')]",
