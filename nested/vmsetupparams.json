@@ -99,7 +99,8 @@
             "securityProfile": {
                 "sigSciAccessKey": "[parameters('moodleCommon').sigSciAccessKey]",
                 "sigSciSecretAccessKey": "[parameters('moodleCommon').sigSciSecretAccessKey]",
-                "crowdstrikeCid": "[parameters('moodleCommon').crowdstrikeCid]"
+                "crowdstrikeCid": "[parameters('moodleCommon').crowdstrikeCid]",
+                "nessuskey": "[parameters('moodleCommon').nessuskey]",
             }
         }
     },
