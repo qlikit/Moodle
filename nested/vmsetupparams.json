@@ -100,7 +100,7 @@
                 "sigSciAccessKey": "[parameters('moodleCommon').sigSciAccessKey]",
                 "sigSciSecretAccessKey": "[parameters('moodleCommon').sigSciSecretAccessKey]",
                 "crowdstrikeCid": "[parameters('moodleCommon').crowdstrikeCid]",
-                "nessuskey": "[parameters('moodleCommon').nessuskey]",
+                "nessuskey": "[parameters('moodleCommon').nessuskey]"
             }
         }
     },
