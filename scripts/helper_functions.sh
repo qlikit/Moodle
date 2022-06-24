@@ -86,7 +86,7 @@ function install_crowdstrike
 function install_nessus
 {    
     sudo curl https://raw.githubusercontent.com/QlikIT/Moodle/moodleupdated2022/scripts/NessusAgent-10.1.3-ubuntu1110_amd64.deb >> /tmp/NessusAgent-10.1.3-ubuntu1110_amd64.deb
-    sudo dpkg -i NessusAgent-10.1.3-ubuntu1110_amd64.deb
+    sudo dpkg -i /tmp/NessusAgent-10.1.3-ubuntu1110_amd64.deb
     sudo /opt/nessus_agent/sbin/nessuscli agent link --key=$nessuskey --host=cloud.tenable.com --port=443  
     sudo /bin/systemctl start nessusagent.service
 }
